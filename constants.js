@@ -42,3 +42,24 @@ export const testimonialsData = [
     text: `As an artist, I love how this tool sparks inspiration. Just type a few words, and it turns them into visuals that help kickstart my creative flow. Truly impressive!`,
   },
 ];
+
+export const plans = [
+  {
+    id: "Basic",
+    price: 10,
+    credits: 100,
+    desc: "Best for personal use.",
+  },
+  {
+    id: "Advanced",
+    price: 50,
+    credits: 500,
+    desc: "Best for business use.",
+  },
+  {
+    id: "Business",
+    price: 250,
+    credits: 5000,
+    desc: "Best for enterprise use.",
+  },
+];

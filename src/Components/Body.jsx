@@ -1,6 +1,6 @@
-import Navbar from './Navbar.jsx'
-import Footer from './Footer.jsx'
-import { Outlet } from 'react-router-dom'
+import Navbar from "./Navbar.jsx";
+import Footer from "./Footer.jsx";
+import { Outlet } from "react-router-dom";
 
 const Body = () => {
   return (
@@ -9,7 +9,7 @@ const Body = () => {
       <Outlet />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Body
+export default Body;

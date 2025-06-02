@@ -11,7 +11,10 @@ const Testimonials = () => {
 
       <div className="flex flex-wrap gap-6">
         {testimonialsData.map((testimonial, index) => (
-          <div key={index} className="bg-white/20 p-12 rounded-lg shadow-md w-80 m-auto hover:scale-[1.02] transition-all">
+          <div
+            key={index}
+            className="bg-white/20 p-12 rounded-lg shadow-md w-80 m-auto hover:scale-[1.02] transition-all"
+          >
             <div className="flex flex-col items-center">
               <img
                 className="rounded-full w-14"
@@ -27,7 +30,9 @@ const Testimonials = () => {
                     <img key={index} src="/images/rating_star.svg" alt="" />
                   ))}
               </div>
-              <p className="text-center text-sm text-gray-600">{testimonial.text}</p>
+              <p className="text-center text-sm text-gray-600">
+                {testimonial.text}
+              </p>
             </div>
           </div>
         ))}

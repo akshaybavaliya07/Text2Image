@@ -1,7 +1,6 @@
-import "./App.css";
 import Body from "./Components/Body.jsx";
 import Home from "./pages/Home.jsx";
-import Result from "./pages/Result.jsx";
+import GenerateImage from "./pages/GenerateImage.jsx";
 import BuyCredit from "./pages/BuyCredit.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -16,11 +15,11 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/result",
-          element: <Result />,
+          path: "/generate",
+          element: <GenerateImage />,
         },
         {
-          path: "/buycredit",
+          path: "/buy-credits",
           element: <BuyCredit />,
         },
       ],

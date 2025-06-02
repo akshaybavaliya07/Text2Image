@@ -20,7 +20,7 @@ const Navbar = () => {
         {user ? (
           <div className="flex items-center gap-2 sm:gap-3">
             <button
-              onClick={() => navigate("/buycredit")}
+              onClick={() => navigate("/buy-credits")}
               className="flex items-center gap-2 bg-blue-100 rounded-full px-4 sm:px-6 py-1 sm:py-3
               hover:scale-105 transition-all duration-300"
             >
@@ -45,7 +45,7 @@ const Navbar = () => {
         ) : (
           <div className="flex items-center gap-2 sm:gap-5">
             <button
-              onClick={() => navigate("/buycredit")}
+              onClick={() => navigate("/buy-credits")}
               className="cursor-pointer"
             >
               pricing

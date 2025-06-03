@@ -1,8 +1,9 @@
-import { memo, useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { memo, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from '../context/AppContext.jsx'
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const {user, setShowLogin} = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -50,7 +51,7 @@ const Navbar = () => {
             >
               pricing
             </button>
-            <button className="bg-zinc-800 text-white px-7 py-2 text-sm rounded-full sm:px-10">
+            <button onClick={() => setShowLogin(true)} className="bg-zinc-800 text-white px-7 py-2 text-sm rounded-full sm:px-10">
               login
             </button>
           </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -17,10 +18,12 @@ const Header = () => {
         in seconds - just type, and watch the magic happens
       </p>
 
-      <button className="sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full hover:scale-105 transition-all duration-500">
-        Generate Images
-        <img className="h-6" src="/images/star_group.png" alt="star_group" />
-      </button>
+      <Link to="/generate">
+        <button className="sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full hover:scale-105 transition-all duration-500">
+          Generate Images
+          <img className="h-6" src="/images/star_group.png" alt="star_group" />
+        </button>
+      </Link>
 
       {/* previous generated images */}
       <div className="flex flex-wrap justify-center gap-3 mt-16">

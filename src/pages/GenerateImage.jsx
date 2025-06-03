@@ -33,7 +33,7 @@ const GenerateImage = () => {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Describe what you want to generate"
-              className="flex-1 bg-transparent outline-none ml-8 max-sm:w-20 placeholder-style"
+              className="flex-1 bg-transparent outline-none ml-8 mr-2 max-sm:w-20 placeholder-style"
             />
             <button
               type="submit"

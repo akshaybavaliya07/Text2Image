@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "motion/react";
 
 const GenerateImage = () => {
   const [prompt, setPrompt] = useState("");
@@ -22,9 +23,13 @@ const GenerateImage = () => {
         </div>
       )}
 
-      <form
+      <motion.form
         onSubmit={onSubmitHandler}
         className="flex flex-col justify-center items-center"
+        initial={{ opacity: 0.2, y: 100 }}
+        transition={{ duration: 1 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
       >
         {!imageUrl && (
           <div className="flex w-full max-w-xl bg-neutral-500 text-white text-sm p-1 mt-20 rounded-full">
@@ -37,10 +42,12 @@ const GenerateImage = () => {
             />
             <button
               type="submit"
-              className={`bg-zinc-900 px-10 sm:px-16 py-3 rounded-full ${isGenerating ? 'opacity-50 cursor-not-allowed':''} `}
+              className={`bg-zinc-900 px-10 sm:px-16 py-3 rounded-full ${
+                isGenerating ? "opacity-50 cursor-not-allowed" : ""
+              } `}
               disabled={isGenerating}
             >
-              {isGenerating ? 'Generating...' : 'Generate'}
+              {isGenerating ? "Generating..." : "Generate"}
             </button>
           </div>
         )}
@@ -56,7 +63,7 @@ const GenerateImage = () => {
             </button>
           </div>
         )}
-      </form>
+      </motion.form>
     </div>
   );
 };

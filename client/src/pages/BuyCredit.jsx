@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext} from "react";
 import { plans } from "../../constants.js";
+import { AppContext } from "../context/AppContext.jsx";
+import { motion } from "motion/react";
 
 const BuyCredit = () => {
-  const[user, setUser] = useState(true);
+  const { user, setShowLogin } = useContext(AppContext);
+
+  const onClickHandler = () => {
+    if(!user) setShowLogin(true);
+   }
 
   return (
-    <div className="min-h-[80vh] text-center pt-14 mb-10">
+    <motion.div
+      className="min-h-[80vh] text-center pt-14 mb-10"
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
       <button className="border border-gray-400 px-10 py-2 rounded-full mb-6">
         Our Plans
       </button>
@@ -18,15 +30,16 @@ const BuyCredit = () => {
             <p className="font-semibold mt-3 mb-1">{item.id}</p>
             <p className="text-sm">{item.desc}</p>
             <p className="mt-6">
-              <span className="text-3xl font-medium">${item.price}</span> / {item.credits} credits
+              <span className="text-3xl font-medium">${item.price}</span> /{" "}
+              {item.credits} credits
             </p>
-            <button className="w-full bg-gray-800 text-white text-sm rounded-md py-2.5 min-w-52 mt-8 cursor-pointer">
-              {user ? "Purchase": "Get Stared"}
+            <button onClick={onClickHandler} className="w-full bg-gray-800 text-white text-sm rounded-md py-2.5 min-w-52 mt-8 cursor-pointer">
+              {user ? "Purchase" : "Get Stared"}
             </button>
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

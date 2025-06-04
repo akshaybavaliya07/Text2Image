@@ -1,0 +1,1 @@
+export const TEXT_TO_IMAGE_API_URL = "https://clipdrop-api.co/text-to-image/v1";

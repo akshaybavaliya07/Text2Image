@@ -7,3 +7,5 @@ const route = express.Router();
 route
     .use(verifyJWT)
     .post('/generate-image', generateImage)
+
+export default route;

@@ -1,11 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext.jsx";
 import { motion } from "motion/react";
+import { useAuth } from '../hooks/useAuth.js'
 
 const Login = () => {
-  const { setShowLogin } = useContext(AppContext);
+  const { setShowLogin, setShowForgotPassword} = useContext(AppContext);
+  const { login, register } = useAuth();
 
   const [isLogin, setIsLogin] = useState(true);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    if (isLogin) {
+      await login(email, password);
+    } else {
+      await register(name, email, password);
+    }
+  };
+
+  const handleForgetPassword = () => {
+    setShowForgotPassword(true);
+    setShowLogin(false);
+  }
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -18,6 +39,7 @@ const Login = () => {
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
       <motion.form
+        onSubmit={submitHandler}
         className="relative bg-white p-10 rounded-xl text-slate-500"
         initial={{ opacity: 0.2, y: 50 }}
         transition={{ duration: 0.3 }}
@@ -39,6 +61,8 @@ const Login = () => {
             <img src="/images/profile_icon.png" alt="" width={20} />
             <input
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="outline-none text-sm"
               placeholder="Full Name"
               required
@@ -50,6 +74,8 @@ const Login = () => {
           <img src="/images/email_icon.svg" alt="" />
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="outline-none text-sm"
             placeholder="example@gmail.com"
             required
@@ -60,6 +86,8 @@ const Login = () => {
           <img src="/images/lock_icon.svg" alt="" />
           <input
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="outline-none text-sm"
             placeholder="password"
             required
@@ -67,12 +95,15 @@ const Login = () => {
         </div>
 
         {isLogin && (
-          <p className="text-sm text-blue-600 my-2 cursor-pointer">
+          <p onClick={handleForgetPassword} className="text-sm text-blue-600 my-2 cursor-pointer">
             Forget password ?
           </p>
         )}
 
-        <button className="w-full bg-blue-600 text-white py-2 rounded-full mt-2">
+        <button
+          type="submit"
+          className="w-full py-2 rounded-full mt-2 text-white bg-blue-600 cursor-pointer"
+        >
           {isLogin ? "Login" : "Create Account"}
         </button>
 

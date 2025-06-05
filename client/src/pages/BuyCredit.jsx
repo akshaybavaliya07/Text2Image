@@ -25,7 +25,7 @@ const BuyCredit = () => {
 
       <div className="flex flex-wrap justify-center text-left gap-6">
         {plans.map((item, index) => (
-          <div className="bg-white drop-shadow-sm border rounded-lg py-12 px-8 text-gray-800 hover:scale-105 transition-all duration-500">
+          <div key={index} className="bg-white drop-shadow-sm border rounded-lg py-12 px-8 text-gray-800 hover:scale-105 transition-all duration-500">
             <img src="/images/logo_icon.svg" alt="" width={40} />
             <p className="font-semibold mt-3 mb-1">{item.id}</p>
             <p className="text-sm">{item.desc}</p>

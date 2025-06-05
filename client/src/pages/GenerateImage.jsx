@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
+import { useImageGenerator } from "../hooks/useImageGenerator";
 
 const GenerateImage = () => {
   const [prompt, setPrompt] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const { generateImage } = useImageGenerator();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    if (!prompt.trim()) return;
+
+    setLoading(true);
+    const image = await generateImage(prompt);
+    if (image) setImageUrl(image);
+    setLoading(false);
   };
 
   return (
     <div className="min-h-[70vh]">
       {/* ✅ Shimmer UI while image is being generated */}
-      {isGenerating && (
+      {loading && (
         <div className="bg-neutral-300 w-80 min-h-80 my-10 mx-auto animate-pulse rounded-xl"></div>
       )}
 
@@ -39,28 +48,37 @@ const GenerateImage = () => {
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Describe what you want to generate"
               className="flex-1 bg-transparent outline-none ml-8 mr-2 max-sm:w-20 placeholder-style"
+              required
             />
             <button
               type="submit"
               className={`bg-zinc-900 px-10 sm:px-16 py-3 rounded-full ${
-                isGenerating ? "opacity-50 cursor-not-allowed" : ""
+                loading ? "opacity-50 cursor-not-allowed" : ""
               } `}
-              disabled={isGenerating}
+              disabled={loading}
             >
-              {isGenerating ? "Generating..." : "Generate"}
+              {loading ? "Generating..." : "Generate"}
             </button>
           </div>
         )}
         {imageUrl && (
           <div className="flex gap-2 flex-wrap justify-center text-white text-sm p-1 mt-10 rounded-full">
-            <button className="bg-transparent border border-zinc-900 text-black  px-8 py-3 rounded-full cursor-pointer">
+            <button
+              className="bg-transparent border border-zinc-900 text-black  px-8 py-3 rounded-full cursor-pointer"
+              onClick={() => {
+                setImageUrl("");
+                setPrompt("");
+              }}
+            >
               Generate Another
             </button>
-            <button className="bg-zinc-900 px-10 py-3 rounded-full cursor-pointer">
-              <a href={imageUrl} download>
-                Download
-              </a>
-            </button>
+            <a
+              href={imageUrl}
+              download="generated-image.jpg"
+              className="bg-zinc-900 px-10 py-3 rounded-full cursor-pointer text-white text-center"
+            >
+              Download
+            </a>
           </div>
         )}
       </motion.form>

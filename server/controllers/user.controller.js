@@ -48,11 +48,8 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const userCredits = asyncHandler( async (req, res) => {
-  console.log("_______________________________________________");
-  console.log(User.creditBalance);
-  console.log("_______________________________________________");
   const user = await User.findById(req.userId);
-  res.status(200).json(new ApiResponse(200, {credits: user.creditBalance, name: user.name}, "User fetched successfully"))
+  res.status(200).json(new ApiResponse(200, {creditBalance: user.creditBalance, name: user.name}, "User fetched successfully"))
 });
 
 export { 

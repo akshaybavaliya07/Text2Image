@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ChangePassword = () => {
@@ -15,7 +15,10 @@ const ChangePassword = () => {
   const navigate = useNavigate();
 
   const backendURL = import.meta.env.VITE_BACKEND_URL;
-  const { token } = useParams();
+  // extract token from query params
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const ChangePassword = () => {
     }
 
     try {
-      const {data} = await axios.post(`${backendURL}/api/auth/reset-password/${token}`, {password});
+      const {data} = await axios.post(`${backendURL}/api/user/reset-password/${token}`, {password});
 
       if(data.success) {
         toast.success("Password reset successful. Please log in.");

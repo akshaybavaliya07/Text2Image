@@ -14,6 +14,8 @@ const AppContextProvider = (props) => {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const fetchUserCredits = async () => {
+    if(!token) return;
+
     try {
       const { data } = await axios.get(backendURL + "/api/user/credits", {
         headers: { token },
@@ -23,7 +25,6 @@ const AppContextProvider = (props) => {
         setUser(data.data);
       }
     } catch (error) {
-      toast.error("Token expired or invalid");
       setUser(null);
       setToken("");
       localStorage.removeItem("token");

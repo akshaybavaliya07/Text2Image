@@ -4,7 +4,8 @@ import GenerateImage from "./pages/GenerateImage.jsx";
 import BuyCredit from "./pages/BuyCredit.jsx";
 import ChangePassword from "./Components/ChangePassword.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import EmailVerified from "./Components/EmailVerified.jsx";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -24,11 +25,15 @@ function App() {
           path: "/buy-credits",
           element: <BuyCredit />,
         },
-        {
-          path: "/reset-password/:token",
-          element: <ChangePassword />
-        }
       ],
+    },
+    {
+      path: "/verify-email",
+      element: <EmailVerified />,
+    },
+    {
+      path: "/reset-password",
+      element: <ChangePassword />,
     },
   ]);
 

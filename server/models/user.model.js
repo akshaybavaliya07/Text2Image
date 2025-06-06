@@ -22,11 +22,18 @@ const userSchema = Schema({
     type: Number,
     default: 5,
   },
+  isEmailVerified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, parseInt(process.env.HASH_SALT_ROUND));
+  this.password = await bcrypt.hash(
+    this.password,
+    parseInt(process.env.HASH_SALT_ROUND)
+  );
   next();
 });
 

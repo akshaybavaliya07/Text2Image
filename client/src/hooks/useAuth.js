@@ -30,7 +30,7 @@ export const useAuth = () => {
     }
   };
 
-  const register = async (name, email, password) => {
+  const register = async (name, email, password, setIsLogin) => {
     try {
       const { data } = await axios.post(backendURL + "/api/user/register", {
         name,
@@ -39,9 +39,7 @@ export const useAuth = () => {
       });
 
       if (data.success) {
-        setShowLogin(false);
-        setUser(data.data.user);
-        setToken(data.data.token);
+        setIsLogin(true);
         localStorage.setItem("token", data.data.token);
       }
     } catch (error) {

@@ -19,7 +19,7 @@ const ForgetPassword = () => {
       setEmailSending(true);
 
       const { data } = await axios.post(
-        `${backendURL}/api/auth/forgot-password`,
+        `${backendURL}/api/user/forgot-password`,
         { email }
       );
       if (data.success) {
@@ -71,6 +71,7 @@ const ForgetPassword = () => {
         {/* Submit Button */}
         <button
           type="submit"
+          disabled= {emailSending}
           className={`w-full py-2 rounded-md mt-5 text-white 
             ${ emailSending ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 cursor-pointer"}`}
         >

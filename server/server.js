@@ -4,7 +4,6 @@ import "dotenv/config";
 import connectDB from "./config/mongodb.js"
 import userRouter from "./routes/user.routes.js"
 import imageRouter from "./routes/image.routes.js"
-import authRouter from "./routes/auth.routes.js"
 import {errHandler} from "./middlewares/errorHandler.middleware.js"
 
 const PORT = process.env.PORT || 4000;
@@ -23,7 +22,6 @@ await connectDB();
 app
   .use("/api/user", userRouter)
   .use("/api/image", imageRouter)
-  .use("/api/auth", authRouter)
   
 app.get("/", (req, res) => res.send("API working"));
 app.use(errHandler);

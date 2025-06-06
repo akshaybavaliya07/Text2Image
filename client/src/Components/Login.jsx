@@ -8,6 +8,7 @@ const Login = () => {
   const { login, register } = useAuth();
 
   const [isLogin, setIsLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,11 +16,16 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    if (isLogin) {
-      await login(email, password);
-    } else {
-      await register(name, email, password);
+    try {
+      if (isLogin) {
+        await login(email, password);
+      } else {
+        await register(name, email, password, setIsLogin);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,7 +108,10 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full py-2 rounded-full mt-2 text-white bg-blue-600 cursor-pointer"
+          disabled={loading}
+          className={`w-full py-2 rounded-full mt-2 text-white transition ${
+            loading ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"
+          }`}
         >
           {isLogin ? "Login" : "Create Account"}
         </button>

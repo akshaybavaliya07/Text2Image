@@ -7,11 +7,18 @@ import { toast } from "react-toastify";
 export const useImageGenerator = () => {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
 
-  const { user, token, fetchUserCredits } = useContext(AppContext);
+  const { user, token, fetchUserCredits, setShowLogin } = useContext(AppContext);
+
   const navigate = useNavigate();
 
   const generateImage = async (prompt) => {
     try {
+      if (!user || !token) {
+        toast.error("Please login to generate images.");
+        setShowLogin(true);
+        return null;
+      }
+
       if (user.creditBalance === 0) {
         toast.error("Insufficient credit balance.");
         navigate("/buy-credits");

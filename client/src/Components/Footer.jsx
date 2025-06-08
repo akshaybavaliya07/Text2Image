@@ -7,7 +7,7 @@ const Footer = () => {
       <p className="flex-1 pl-4 text-sm text-gray-500 max-sm:hidden">
         Copyright @akshay | All right reserved.
       </p>
-      <div className="flex gap-3">
+      <div className="flex gap-3 cursor-pointer">
         <img src="images/facebook_icon.svg" alt="" width={35} />
         <img src="images/twitter_icon.svg" alt="" width={35} />
         <img src="images/instagram_icon.svg" alt="" width={35} />

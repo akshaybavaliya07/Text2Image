@@ -12,7 +12,7 @@ const Body = () => {
 
   return (
     <>
-      <ToastContainer position="top-right" />
+      <ToastContainer position="top-right" style={{ marginTop: '5rem' }}/>
       <Navbar />
       {showLogin && <Login />}
       {showForgotPassword && <ForgetPassword />}

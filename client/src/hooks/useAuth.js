@@ -5,8 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
-  const { setShowLogin, setUser, setToken } = useContext(AppContext);
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
+  const { setShowLogin, setUser, setToken, backendURL } = useContext(AppContext);
   const navigate = useNavigate();
 
   const login = async (email, password) => {

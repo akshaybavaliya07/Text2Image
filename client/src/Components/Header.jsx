@@ -64,39 +64,6 @@ const Header = () => {
         <img className="h-6" src="/images/star_group.png" alt="star_group" />
       </motion.button>
 
-      {/* previous generated images */}
-      <motion.div
-        className="flex flex-wrap justify-center gap-3 mt-16"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-      >
-        {Array(6)
-          .fill("")
-          .map((item, index) => (
-            <motion.img
-              key={index}
-              className="rounded hover:scale-105 transition-all duration-300 cursor-pointer max-sm:w-10"
-              whileHover={{ scale: 1.05, duration: 0.1 }}
-              src={
-                index % 2 === 0
-                  ? "/images/sample_img_1.png"
-                  : "/images/sample_img_2.png"
-              }
-              alt="generated_images"
-              width={70}
-            />
-          ))}
-      </motion.div>
-
-      <motion.p
-        className="text-neutral-600 mt-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-      >
-        Previous generated images
-      </motion.p>
     </motion.div>
   );
 };

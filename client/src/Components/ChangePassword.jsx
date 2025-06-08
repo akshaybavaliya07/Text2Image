@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ChangePassword = () => {
-  const { setShowLogin } =
+  const { setShowLogin, backendURL } =
     useContext(AppContext);
 
   const [password, setPassword] = useState("");
@@ -14,7 +14,6 @@ const ChangePassword = () => {
 
   const navigate = useNavigate();
 
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
   // extract token from query params
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);

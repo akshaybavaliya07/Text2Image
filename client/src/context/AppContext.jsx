@@ -10,6 +10,7 @@ const AppContextProvider = (props) => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
+  const [generatedImages, setGeneratedImages] = useState([]);
 
   const backendURL = import.meta.env.VITE_BACKEND_URL;
 
@@ -46,6 +47,8 @@ const AppContextProvider = (props) => {
     token,
     setToken,
     fetchUserCredits,
+    generatedImages,
+    setGeneratedImages,
     showForgotPassword,
     setShowForgotPassword,
     showChangePassword, 

@@ -17,8 +17,8 @@ const Description = () => {
 
       <div className="flex flex-col gap-5 md:gap-14 md:flex-row items-center">
         <img
-          className="w-80 xl:w-96 rounded-b-lg"
-          src="/images/sample_img_1.png"
+          className="w-80 xl:w-96 rounded-lg"
+          src="/images/image-generator-example.webp"
           alt=""
         />
         <div>

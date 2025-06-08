@@ -1,16 +1,19 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 const EmailVerified = () => {
   const [verified, setVerified] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const { backendURL } =
+      useContext(AppContext);
+
   // extract token from query params
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
-
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const verfyEmail = async () => {
     try {

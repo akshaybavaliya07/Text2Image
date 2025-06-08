@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { useImageGenerator } from "../hooks/useImageGenerator";
+import { useLocation } from "react-router-dom";
 
 const GenerateImage = () => {
   const [prompt, setPrompt] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [loading, setLoading] = useState(false);
 
   const { generateImage } = useImageGenerator();
@@ -27,8 +28,8 @@ const GenerateImage = () => {
       )}
 
       {imageUrl && (
-        <div className="bg-neutral-300 w-80 min-h-80 my-10 mx-auto rounded-xl">
-          <img src={imageUrl} alt="" />
+        <div className="bg-neutral-300 w-80 min-h-80 my-10 mx-auto rounded-lg overflow-hidden">
+          <img src={imageUrl} alt="" className="w-full h-full object-cover" />
         </div>
       )}
 
@@ -73,8 +74,7 @@ const GenerateImage = () => {
               Generate Another
             </button>
             <a
-              href={imageUrl}
-              download="generated-image.jpg"
+              href={imageUrl} download
               className="bg-zinc-900 px-10 py-3 rounded-full cursor-pointer text-white text-center"
             >
               Download

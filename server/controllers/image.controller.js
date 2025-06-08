@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import FormData from "form-data";
-import { TEXT_TO_IMAGE_API_URL } from "../constants.js";
+import axios from "axios";
 
 export const generateImage = asyncHandler(async (req, res) => {
   const { prompt } = req.body;
@@ -15,22 +15,21 @@ export const generateImage = asyncHandler(async (req, res) => {
     throw new ApiError(403, "Insufficient credits");
   }
 
-  // const formData = new FormData();
-  // formData.append("prompt", prompt);
+  const formData = new FormData();
+  formData.append("prompt", prompt);
 
-  // const responseBuffer = await fetch(TEXT_TO_IMAGE_API_URL, {
-  //   method: "POST",
-  //   headers: {
-  //     "x-api-key": process.env.CLIPDROP_API,
-  //   },
-  //   body: formData,
-  // }).then((response) => response.arrayBuffer());
+  const { data } = await axios.post(process.env.CLIPDROP_API_URL, formData, {
+    headers: {
+      "x-api-key": process.env.CLIPDROP_API_KEY,
+    },
+    responseType: 'arraybuffer'
+  });
 
-  // const base64Image = Buffer.from(responseBuffer, "binary").toString("base64");
-  // const resultImage = `data:image/png;base64,${base64Image}`;
+  const base64Image = Buffer.from(data, 'binary').toString("base64");
+  const resultImage = `data:image/png;base64,${base64Image}`;
 
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: req.userId, creditBalance: { $gt: 0 } },
+  const updatedUser = await User.findByIdAndUpdate(
+    req.userId,
     { $inc: { creditBalance: -1 } }
   );
   if (!updatedUser) throw new ApiError(403, "Insufficient credits");
@@ -40,7 +39,7 @@ export const generateImage = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        { image: "https://th.bing.com/th/id/OIP.mGlUcGdG-kz2Qw9sItcvwwAAAA" },
+        { image: resultImage },
         "Image generated successfully"
       )
     );

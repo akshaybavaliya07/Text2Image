@@ -5,11 +5,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const ForgetPassword = () => {
-  const { setShowForgotPassword } = useContext(AppContext);
+  const { setShowForgotPassword, backendURL } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
   const [emailSending, setEmailSending] = useState(false);
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const submitHandler = async (e) => {
     e.preventDefault();

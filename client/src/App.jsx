@@ -38,7 +38,7 @@ function App() {
   ]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-50 to-orange-50 px-4 sm:px-10 md:px-14 lg:px-28 ">
+    <div className="min-h-screen px-4 sm:px-10 md:px-14 lg:px-28 bg-gradient-to-br from-[#E6F0FF] to-[#FFFDE1]">
       <RouterProvider router={appRouter}></RouterProvider>
     </div>
   );

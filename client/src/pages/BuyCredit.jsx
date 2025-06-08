@@ -2,12 +2,62 @@ import React, { useContext} from "react";
 import { plans } from "../../constants.js";
 import { AppContext } from "../context/AppContext.jsx";
 import { motion } from "motion/react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const BuyCredit = () => {
-  const { user, setShowLogin } = useContext(AppContext);
+  const { user, setShowLogin, backendURL, token, fetchUserCredits } = useContext(AppContext);
 
-  const onClickHandler = () => {
+  const initiateRazorpayPayment = async (order) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: "credits payment",
+      description: "credits payment",
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        try {
+          const {data} = await axios.post(
+            `${backendURL}/api/user/verify-payment`,
+            response,
+            { headers: { token } }
+          );
+          if(data.success) {
+            fetchUserCredits();
+            toast.success("Credits added");
+          }
+        } catch (error) {
+          const errMsg = error.response?.data?.message || error.message;
+          toast.error(errMsg);
+        }
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  }
+
+  const payNow = async (planId) => {
     if(!user) setShowLogin(true);
+
+    try {
+      // Create order by calling the server endpoint
+      const { data } = await axios.post(
+        `${backendURL}/api/user/create-order`,
+        { planId },
+        { headers: { token } }
+      );
+
+      if(data.success) {
+        // Open Razorpay Checkout
+        initiateRazorpayPayment(data.data);
+      }
+    } catch (error) {
+      const errMsg = error.response?.data?.message || error.message;
+      toast.error(errMsg);
+    }
    }
 
   return (
@@ -33,7 +83,7 @@ const BuyCredit = () => {
               <span className="text-3xl font-medium">${item.price}</span> /{" "}
               {item.credits} credits
             </p>
-            <button onClick={onClickHandler} className="w-full bg-gray-800 text-white text-sm rounded-md py-2.5 min-w-52 mt-8 cursor-pointer">
+            <button onClick={() => payNow(item.id)} className="w-full bg-gray-800 text-white text-sm rounded-md py-2.5 min-w-52 mt-8 cursor-pointer">
               {user ? "Purchase" : "Get Stared"}
             </button>
           </div>

@@ -35,7 +35,7 @@ export const testimonialsData = [
     text: `I use this generator to bring my content ideas to life without needing hours of editing. It’s fast, reliable, and surprisingly creative. A huge time-saver!`,
   },
   {
-    image: "images/profile_img_1.png",
+    image: "images/profile_img_3.png",
     name: "Samantha Lee",
     role: "Digital Artist",
     stars: 5,

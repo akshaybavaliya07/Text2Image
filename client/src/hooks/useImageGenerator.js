@@ -5,11 +5,18 @@ import { AppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
 
 export const useImageGenerator = () => {
-  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
-  const { user, token, fetchUserCredits, setShowLogin } = useContext(AppContext);
+  const { user, token, fetchUserCredits, setShowLogin, backendURL, setGeneratedImages} = useContext(AppContext);
 
   const navigate = useNavigate();
+
+  const updateGenerateImagesArray = ( newImage) => {
+    setGeneratedImages(prevImages => {
+      const updated = [newImage, ...prevImages];
+      if (updated.length > 5) updated.pop();
+      return updated;
+    });
+  } 
 
   const generateImage = async (prompt) => {
     try {
@@ -33,6 +40,7 @@ export const useImageGenerator = () => {
 
       if (data.success) {
         fetchUserCredits();
+        updateGenerateImagesArray(data.data.image);
         return data.data.image;
       }
 
@@ -46,4 +54,4 @@ export const useImageGenerator = () => {
   };
 
   return { generateImage };
-};
+}

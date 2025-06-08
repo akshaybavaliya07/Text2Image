@@ -38,6 +38,7 @@ export const useAuth = () => {
       });
 
       if (data.success) {
+        toast.success("Verification link sent to your email.");
         setIsLogin(true);
         localStorage.setItem("token", data.data.token);
       }

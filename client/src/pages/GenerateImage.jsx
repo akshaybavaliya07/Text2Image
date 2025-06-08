@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 const GenerateImage = () => {
   const [prompt, setPrompt] = useState("");
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+  const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { generateImage } = useImageGenerator();

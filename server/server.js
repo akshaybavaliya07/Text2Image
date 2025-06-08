@@ -22,8 +22,7 @@ await connectDB();
 app
   .use("/api/user", userRouter)
   .use("/api/image", imageRouter)
-  
-app.get("/", (req, res) => res.send("API working"));
+
 app.use(errHandler);
 
 app.listen(PORT, () => console.log(`🕹️ Server started on ${PORT}`));

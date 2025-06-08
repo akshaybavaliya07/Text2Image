@@ -13,6 +13,7 @@
 ### 🔐 Authentication & Security
 - **User Signup & Email Verification**: A verification link is sent to the user’s email on signup.
 - **Login with JWT**: Users receive a token stored in `localStorage`, auto-verified on future visits.
+- **Password Hashing**: User passwords are securely hashed using **bcrypt** before storing in the database.
 - **Forgot Password**: Users receive a reset link via email to securely update their password.
 
 ### 🎁 Credits System
@@ -25,6 +26,7 @@
 - **ClipDrop API**: Powerful image generation based on prompt.
 - **Shimmer UI**: Loading animation displayed during image generation.
 - **Image Download**: Users can download generated images.
+- **Smooth Animations**: Interactive and engaging UI enhanced with [Framer Motion](https://www.framer.com/motion/)
 
 ---
 

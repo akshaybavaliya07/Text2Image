@@ -11,6 +11,7 @@ const ChangePassword = () => {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,11 +22,13 @@ const ChangePassword = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
+
+    setLoading(true);
 
     try {
       const {data} = await axios.post(`${backendURL}/api/user/reset-password/${token}`, {password});
@@ -38,6 +41,8 @@ const ChangePassword = () => {
     } catch (error) {
       const errMsg = error.response?.data?.message || "Something went wrong.";
       toast.error(errMsg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,7 +89,9 @@ const ChangePassword = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-2 rounded-md mt-5 text-white bg-blue-600 cursor-pointer"
+          className={`w-full py-2 rounded-md mt-5 text-white bg-blue-600 cursor-pointer
+            ${ loading ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"}
+          `}
         >
           Reset Password
         </button>

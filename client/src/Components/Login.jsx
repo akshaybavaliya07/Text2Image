@@ -109,9 +109,9 @@ const Login = () => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full py-2 rounded-full mt-2 text-white transition ${
-            loading ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          className={`w-full py-2 rounded-full mt-2 text-white transition cursor-pointer 
+            ${ loading ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700" }
+          `}
         >
           {isLogin ? "Login" : "Create Account"}
         </button>

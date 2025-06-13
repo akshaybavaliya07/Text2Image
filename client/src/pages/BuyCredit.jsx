@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext, useState} from "react";
 import { plans } from "../../constants.js";
 import { AppContext } from "../context/AppContext.jsx";
 import { motion } from "motion/react";
@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 
 const BuyCredit = () => {
   const { user, setShowLogin, backendURL, token, fetchUserCredits } = useContext(AppContext);
+
+  const [loading, setLoading] = useState(false);
 
   const initiateRazorpayPayment = async (order) => {
     const options = {
@@ -41,6 +43,7 @@ const BuyCredit = () => {
 
   const payNow = async (planId) => {
     if(!user) setShowLogin(true);
+    setLoading(true);
 
     try {
       // Create order by calling the server endpoint
@@ -57,6 +60,8 @@ const BuyCredit = () => {
     } catch (error) {
       const errMsg = error.response?.data?.message || error.message;
       toast.error(errMsg);
+    } finally {
+      setLoading(false);
     }
    }
 
@@ -75,7 +80,10 @@ const BuyCredit = () => {
 
       <div className="flex flex-wrap justify-center text-left gap-6">
         {plans.map((item, index) => (
-          <div key={index} className="bg-white drop-shadow-sm border rounded-lg py-12 px-8 text-gray-800 hover:scale-105 transition-all duration-500">
+          <div
+            key={index}
+            className="bg-white drop-shadow-sm border rounded-lg py-12 px-8 text-gray-800 hover:scale-105 transition-all duration-500"
+          >
             <img src="/images/logo_icon.svg" alt="" width={40} />
             <p className="font-semibold mt-3 mb-1">{item.id}</p>
             <p className="text-sm">{item.desc}</p>
@@ -83,7 +91,12 @@ const BuyCredit = () => {
               <span className="text-3xl font-medium">${item.price}</span> /{" "}
               {item.credits} credits
             </p>
-            <button onClick={() => payNow(item.id)} className="w-full bg-gray-800 text-white text-sm rounded-md py-2.5 min-w-52 mt-8 cursor-pointer">
+            <button
+              onClick={() => payNow(item.id)}
+              disabled={loading}
+              className={`w-full text-sm rounded-md py-2.5 min-w-52 mt-8 cursor-pointer transition-opacity duration-200
+                ${ loading ? "bg-gray-500 cursor-not-allowed opacity-60" : "bg-gray-800 text-white"}`}
+            >
               {user ? "Purchase" : "Get Stared"}
             </button>
           </div>

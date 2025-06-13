@@ -89,6 +89,7 @@ const ChangePassword = () => {
         {/* Submit Button */}
         <button
           type="submit"
+          disabled = {loading}
           className={`w-full py-2 rounded-md mt-5 text-white bg-blue-600 cursor-pointer
             ${ loading ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"}
           `}
